@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: check misspelling by typos
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
       - name: Run typos command
         shell: nix shell nixpkgs#typos --quiet --command bash {0}
