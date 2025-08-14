@@ -23,10 +23,12 @@
           default = pkgs.mkShell {
             # The Nix packages installed in the dev environment.
             packages = with pkgs; [
-              typos # check misspelling
-              git-cliff # generate changelog
+              fluxcd # GitOps solution for kubernetes
               trivy # find vulnerabilities and misconfigurations
+              sops # simple tool for managing secrets
+              git-cliff # generate changelog
               just # just a command runner
+              typos # check misspelling
             ];
           };
         }
