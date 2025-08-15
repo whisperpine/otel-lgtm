@@ -16,8 +16,3 @@ spec:
         kind: HelmRepository
         name: prometheus
         namespace: flux-system
-  values:
-    replicas: 2
-    # persistence:
-    #   enabled: true
-    #   size: 10Gi

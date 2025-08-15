@@ -18,6 +18,12 @@ spec:
         namespace: flux-system
   values:
     replicas: 1
-    # persistence:
-    #   enabled: true
-    #   size: 10Gi
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            url: http://prometheus-server
+            access: proxy
+            isDefault: true
