@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/all.json
+
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: default
+spec:
+  releaseName: loki
+  interval: 1m
+  chart:
+    spec:
+      chart: loki
+      version: 6.*
+      sourceRef:
+        kind: HelmRepository
+        name: loki
+        namespace: flux-system
+  values:
+    deploymentMode: SingleBinary
+    singleBinary:
+      replicas: 1
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    backend:
+      replicas: 0
+    minio:
+      enabled: true
+      persistence:
+        size: 10Gi
+      users:
+        - accessKey: logs-user
+          secretKey: supersecretpassword
+          policy: readwrite
+    loki:
+      useTestSchema: true # todo: not for production
+      storage:
+        type: s3
+        bucketNames:
+          chunks: loki-chunks
+          ruler: loki-ruler
+          admin: loki-admin
+        s3:
+          endpoint: http://loki-minio.default.svc.cluster.local:9000
+          s3forcepathstyle: true
+          insecure: true # Set to true for MinIO in dev environments
+          accessKeyId: logs-user # todo: change it later and use sops to encrypt
+          secretAccessKey: supersecretpassword # todo: change it later and use sops to encrypt

@@ -27,3 +27,7 @@ spec:
             url: http://prometheus-server.default.svc.cluster.local
             access: proxy
             isDefault: true
+          - name: Loki
+            type: loki
+            url: http://loki-gateway.default.svc.cluster.local
+            access: proxy
