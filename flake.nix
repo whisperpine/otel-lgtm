@@ -23,6 +23,7 @@
           default = pkgs.mkShell {
             # The Nix packages installed in the dev environment.
             packages = with pkgs; [
+              kubernetes-helm # helm command
               fluxcd # GitOps solution for kubernetes
               trivy # find vulnerabilities and misconfigurations
               sops # simple tool for managing secrets
