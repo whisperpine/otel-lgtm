@@ -6,6 +6,10 @@
 # Date: 2025-08-14
 # Author: Yusong
 
+# Prerequesuites: env var GITHUB_TOKEN is exported to current shell session.
+# GITHUB_TOKEN is the PAT (personal access token) with proper permissions.
+# Refer to: https://fluxcd.io/flux/installation/bootstrap/github/#github-organization
+
 bootstrap() {
   flux bootstrap github \
     --owner=whisperpine \
