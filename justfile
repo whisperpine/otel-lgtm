@@ -6,3 +6,8 @@ forward:
 passwd:
   kubectl -n monitoring get secret/grafana \
     -o jsonpath="{.data.admin-password}" | base64 -d
+
+# find vulnerabilities and misconfigurations by trivy
+trivy:
+  trivy fs .
+  trivy config --skip-dirs "**/flux-system" .
