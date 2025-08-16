@@ -30,3 +30,7 @@ spec:
             type: loki
             url: http://loki.monitoring.svc.cluster.local:3100
             access: proxy
+          - name: Tempo
+            type: tempo
+            access: proxy
+            url: http://tempo-gateway.monitoring.svc.cluster.local
