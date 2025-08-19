@@ -48,6 +48,9 @@ spec:
       exporters:
         # prometheusremotewrite:
         #   endpoint: "http://prometheus-server.monitoring.svc.cluster.local/api/v2/write"
+        prometheus:
+          endpoint: "0.0.0.0:8888"
+          namespace: "otelcol"
         otlphttp/loki:
           endpoint: "http://loki.monitoring.svc.cluster.local:3100/otlp"
         otlp/tempo:
@@ -58,8 +61,7 @@ spec:
         pipelines:
           metrics:
             receivers: [otlp]
-            exporters: [debug]
-            # exporters: [prometheusremotewrite]
+            exporters: [prometheus]
           logs:
             receivers: [otlp]
             exporters: [otlphttp/loki]
