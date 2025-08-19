@@ -28,6 +28,12 @@ spec:
         enabled: false
       zipkin:
         enabled: false
+      metrics:
+        enabled: true
+        containerPort: 8888
+        servicePort: 8888
+    service:
+      enabled: true
     config:
       receivers:
         jaeger: null
