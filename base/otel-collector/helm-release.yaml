@@ -16,7 +16,7 @@ spec:
         namespace: monitoring
   # https://opentelemetry.io/docs/platforms/kubernetes/helm/collector/
   values:
-    mode: daemonset
+    mode: deployment
     image:
       repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
     ports:
@@ -28,12 +28,10 @@ spec:
         enabled: false
       zipkin:
         enabled: false
-      metrics:
+      prometheus:
         enabled: true
-        containerPort: 8888
-        servicePort: 8888
-    service:
-      enabled: true
+        containerPort: 8889
+        servicePort: 8889
     config:
       receivers:
         jaeger: null
@@ -49,7 +47,7 @@ spec:
         # prometheusremotewrite:
         #   endpoint: "http://prometheus-server.monitoring.svc.cluster.local/api/v2/write"
         prometheus:
-          endpoint: "0.0.0.0:8888"
+          endpoint: "0.0.0.0:8889"
           namespace: "otelcol"
         otlphttp/loki:
           endpoint: "http://loki.monitoring.svc.cluster.local:3100/otlp"

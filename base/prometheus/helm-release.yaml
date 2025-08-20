@@ -22,7 +22,7 @@ spec:
           - job_name: opentelemetry-collector
             static_configs:
               - targets:
-                  - opentelemetry-collector.monitoring.svc.cluster.local:8888
+                  - opentelemetry-collector.monitoring.svc.cluster.local:8889
     server:
       tsdb:
         # https://prometheus.io/docs/guides/opentelemetry/#enable-out-of-order-ingestion
