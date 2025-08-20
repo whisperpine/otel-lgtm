@@ -13,5 +13,11 @@
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["* * 2 * *"]
+  },
+  "flux": {
+    "managerFilePatterns": [
+      "/(?:^|/)gotk-components\\.ya?ml$/",
+      "/base/.+\\.ya?ml$/"
+    ]
   }
 }
