@@ -28,10 +28,11 @@ spec:
         enabled: false
       zipkin:
         enabled: false
-      prometheus:
-        enabled: true
-        containerPort: 8889
-        servicePort: 8889
+      # # Enable this if scraping approach is used.
+      # prometheus:
+      #   enabled: true
+      #   containerPort: 8889
+      #   servicePort: 8889
     config:
       receivers:
         jaeger: null
@@ -44,11 +45,14 @@ spec:
             http:
               endpoint: "0.0.0.0:4318"
       exporters:
-        # prometheusremotewrite:
-        #   endpoint: "http://prometheus-server.monitoring.svc.cluster.local/api/v2/write"
-        prometheus:
-          endpoint: "0.0.0.0:8889"
-          namespace: "otelcol"
+        # Send to prometheus' otlp receiver.
+        # Prerequisites: prometheus enables "web.enable-otlp-receiver".
+        otlp/prometheus:
+          endpoint: "prometheus-server.monitoring.svc.cluster.local:9090/api/v1/otlp/v1/metrics"
+        # # Should be scraped by prometheus.
+        # prometheus:
+        #   endpoint: "0.0.0.0:8889"
+        #   namespace: "otelcol"
         otlphttp/loki:
           endpoint: "http://loki.monitoring.svc.cluster.local:3100/otlp"
         otlp/tempo:
@@ -59,7 +63,7 @@ spec:
         pipelines:
           metrics:
             receivers: [otlp]
-            exporters: [prometheus]
+            exporters: [otlp/prometheus]
           logs:
             receivers: [otlp]
             exporters: [otlphttp/loki]

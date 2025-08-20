@@ -16,14 +16,11 @@ spec:
         name: prometheus
         namespace: monitoring
   values:
-    serverFiles:
-      prometheus.yml:
-        scrape_configs:
-          - job_name: opentelemetry-collector
-            static_configs:
-              - targets:
-                  - opentelemetry-collector.monitoring.svc.cluster.local:8889
     server:
+      extraArgs:
+        # Enable the OTLP receiver.
+        # https://prometheus.io/docs/guides/opentelemetry/#enable-the-otlp-receiver
+        web.enable-otlp-receiver: null
       tsdb:
         # https://prometheus.io/docs/guides/opentelemetry/#enable-out-of-order-ingestion
         out_of_order_time_window: 10m
