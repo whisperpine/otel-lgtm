@@ -47,14 +47,14 @@ spec:
       exporters:
         # Send to prometheus' otlp receiver.
         # Prerequisites: prometheus enables "web.enable-otlp-receiver".
-        otlp/prometheus:
-          endpoint: "prometheus-server.monitoring.svc.cluster.local:9090/api/v1/otlp/v1/metrics"
+        otlphttp/prometheus:
+          endpoint: "prometheus-server.monitoring.svc.cluster.local/api/v1/otlp/v1/metrics"
         # # Should be scraped by prometheus.
         # prometheus:
         #   endpoint: "0.0.0.0:8889"
         #   namespace: "otelcol"
         otlphttp/loki:
-          endpoint: "http://loki.monitoring.svc.cluster.local:3100/otlp"
+          endpoint: "loki.monitoring.svc.cluster.local:3100/otlp"
         otlp/tempo:
           endpoint: "tempo.monitoring.svc.cluster.local:4317"
           tls:
@@ -63,7 +63,7 @@ spec:
         pipelines:
           metrics:
             receivers: [otlp]
-            exporters: [otlp/prometheus]
+            exporters: [otlphttp/prometheus]
           logs:
             receivers: [otlp]
             exporters: [otlphttp/loki]
