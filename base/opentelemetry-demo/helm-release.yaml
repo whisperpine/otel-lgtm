@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/all.json
+
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: opentelemetry-demo
+  namespace: default
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: opentelemetry-demo
+      version: "0.37.6"
+      sourceRef:
+        kind: HelmRepository
+        name: opentelemetry-demo
+        namespace: default
+  values:
+    default:
+      env:
+        - name: OTEL_SERVICE_NAME
+          value: opentelemetry-collector
+        - name: OTEL_COLLECTOR_NAME
+          value: opentelemetry-collector.monitoring.svc.cluster.local
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: "service.name=$(OTEL_SERVICE_NAME),service.namespace=monitoring,service.version={{ .Chart.AppVersion }}"
+    serviceAccount:
+      create: false
+    # ----- sub-charts -----
+    opentelemetry-collector:
+      enabled: false
+    opensearch:
+      enabled: false
+    grafana:
+      enabled: false
+    jaeger:
+      enabled: false
+    prometheus:
+      enabled: false
+    # ----- components -----
+    components:
+      # fraud-detection.resources.limits.memory # default 300Mi
+      # kafka.resources.limits.memory # default 600Mi
+      # recommendation.resources.limits.memory # default 500Mi
+      # ad.resources.limits.memory # default 300Mi
+      load-generator:
+        enabled: false
