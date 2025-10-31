@@ -22,7 +22,7 @@ my-dev-k8s
     └── kustomization.yaml
 ```
 
-Run the following conmmands to create flux configuraitons for this repo:
+Run the following conmmands to create flux configurations for this repo:
 
 ```sh
 mkdir -p otel-lgtm
