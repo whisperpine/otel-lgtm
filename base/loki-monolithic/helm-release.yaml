@@ -15,7 +15,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: loki
-        namespace: monitoring
+        namespace: flux-system
   # https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/
   values:
     deploymentMode: SingleBinary
