@@ -32,6 +32,13 @@
               just # just a command runner
               typos # check misspelling
             ];
+            # The shell script executed when the environment is activated.
+            shellHook = ''
+              # Print the last modified date of "flake.lock".
+              stat flake.lock | grep "Modify" |
+                awk '{printf "\"flake.lock\" last modified on: %s", $2}' &&
+                echo " ($((($(date +%s) - $(stat -c %Y flake.lock)) / 86400)) days ago)"
+            '';
           };
         }
       );
