@@ -3,6 +3,9 @@
 OpenTelemetry and LGTM (Loki, Tempo, Grafana, Prometheus) observability stack
 deployed by FluxCD.
 
+> [!WARNING]
+> This repository has been migrated to be part of [whisperpine/fluxinfra](https://github.com/whisperpine/fluxinfra).
+
 ## Prerequisites
 
 - Commonly used Kubernetes commands (e.g. `flux`, `helm`, `kubectl`) are installed.
